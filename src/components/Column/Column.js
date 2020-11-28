@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import { Div, Card, Header, Button} from '@vkontakte/vkui';
 import './Column.css'
@@ -6,10 +6,15 @@ import Cards from '../Cards/Cards'
 
 import { deleteColumn } from '../../actions/index'
 
-const Column = ({name, id, onDelete}) => {
+import Context from '../App/context'
+
+const Column = ({name, id}) => {
+
+  const {removeColumn} = useContext(Context);
+
   const deleteItem = () => {
        deleteColumn()
-        .then(()=> onDelete(id))
+        .then(()=> removeColumn(id))
         .catch(console.error())
   }
 
@@ -34,8 +39,7 @@ const Column = ({name, id, onDelete}) => {
 
 Column.propTypes ={
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired
+  id: PropTypes.string.isRequired
 }
 
 export default Column;

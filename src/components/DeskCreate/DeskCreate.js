@@ -1,20 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types'
 
 import CreateForm from '../CreateForm/CreateForm';
-import {createDesk} from '../../actions/index'
+import {createDesk} from '../../actions/index';
 
-const modes = {
-  button: 'button',
-  form: 'form'
-}
+import Context from '../App/context';
 
-const DeskCreate = ({onCreate}) => {
+const DeskCreate = () => {
 
+  const {addDesk} = useContext(Context)
   const createItem = (name) => {
     createDesk(name)
     .then(doc => {
-      onCreate({
+      addDesk({
         id: doc.id,
         ...doc.data()
       });
@@ -28,10 +26,6 @@ const DeskCreate = ({onCreate}) => {
       placeholder = "Введите название доски"
       actionTitle = "Создать доску"/>
   )
-}
-
-DeskCreate.propTypes = {
-  onCreate: PropTypes.func.isRequired
 }
 
 

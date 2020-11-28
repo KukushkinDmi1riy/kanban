@@ -1,31 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types'
 import CreateForm from '../CreateForm/CreateForm';
 import { createCard } from '../../actions/index'
 
 import '../../panels/Columns/Columns.css'
 
-import { Div } from '@vkontakte/vkui';
+import Context from '../App/context'
 
-const CardCreate = ({onCreate, columnId}) => {
+const CardCreate = ({columnId}) => {
+  const {addCard} = useContext(Context)
+
   const createItem = (name) => {
     return createCard(name, columnId)
-      .then(doc => onCreate({id: doc.id,...doc.data()}))
+      .then(doc => addCard({id: doc.id,...doc.data()}))
       .catch(console.error())
     }
 
   return (
-    <Div className="Column">
       <CreateForm
       onSubmit = {createItem}
       placeholder = "Введите название карты"
       actionTitle = "Создать карту"/>
-    </Div>
   )
 }
 
 CardCreate.propTypes = {
-  onCreate: PropTypes.func.isRequired,
   columnId: PropTypes.string.isRequired
 }
 

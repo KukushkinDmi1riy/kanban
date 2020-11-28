@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types'
 import CreateForm from '../CreateForm/CreateForm';
 import '../../panels/Columns/Columns.css'
@@ -6,13 +6,17 @@ import { Div } from '@vkontakte/vkui';
 
 import { createColumn } from '../../actions/index'
 
-const ColumnCreate = ({onCreate, deskId}) => {
+import Context from '../App/context'
 
-  const createItem = (name) => {
-    return createColumn(name, deskId)
-      .then(doc => onCreate({id: doc.id,...doc.data()}))
+const ColumnCreate = () => {
+
+  const {addColumn, activeDesk} = useContext(Context)
+
+  const createItem = (name) => (
+    createColumn(name, activeDesk.id)
+      .then(doc => addColumn({id: doc.id,...doc.data()}))
       .catch(console.error())
-    }
+  )
 
   return (
     <Div className="Column">
@@ -22,12 +26,6 @@ const ColumnCreate = ({onCreate, deskId}) => {
       actionTitle = "Создать колонку"/>
     </Div>
   )
-}
-
-ColumnCreate.propTypes = {
-  onCreate: PropTypes.func.isRequired,
-  deskId: PropTypes.string.isRequired
-}
-
+};
 
 export default ColumnCreate;
