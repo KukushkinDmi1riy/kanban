@@ -1,33 +1,33 @@
-import React, {useContext} from 'react'
-import PropTypes from 'prop-types'
-import { Div, Card, Button } from '@vkontakte/vkui';
-import {deleteCard} from '../../actions/index'
-import './ColumnCard.css'
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { Card, Div, Button } from "@vkontakte/vkui";
 
-import Context from '../App/context'
+import './ColumnCard.css';
+import { deleteCard } from "../../actions";
+import Context from "../App/context";
 
-const ColumnCard = ({children, id}) => {
-
-  const {removeCard}  = useContext(Context)
+const ColumnCard = ({ children, id }) => {
+  const { removeCard } = useContext(Context);
 
   const deleteItem = () => {
     deleteCard(id)
-        .then(()=> removeCard(id))
-        .catch(console.error())
-  }
+      .then(() => removeCard(id))
+      .catch(console.error);
+  };
+
   return (
-  <Card size="l">
-    <Div className = "ColumnCard__wrapper">
-      {children}
-      <Button mode="destructive" onClick = {deleteItem}>Удалить карту</Button>
-    </Div>
-  </Card>
-  )
-}
+    <Card size="l">
+      <Div className="ColumnCard__wrapper">
+        {children}
+        <Button mode="destructive" onClick={deleteItem}>Удалить</Button>
+      </Div>
+    </Card>
+  );
+};
 
 ColumnCard.propTypes = {
+  id: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  id: PropTypes.string.isRequired
-}
+};
 
-export default ColumnCard
+export default ColumnCard;

@@ -1,30 +1,24 @@
 import React, {useContext} from 'react';
-import PropTypes from 'prop-types'
 
 import CreateForm from '../CreateForm/CreateForm';
 import {createDesk} from '../../actions/index';
-
 import Context from '../App/context';
 
 const DeskCreate = () => {
 
   const {addDesk} = useContext(Context)
-  const createItem = (name) => {
+  const createItem = (name) => (
     createDesk(name)
-    .then(doc => {
-      addDesk({
-        id: doc.id,
-        ...doc.data()
-      });
-    })
-    .catch(console.error())
-    }
+    .then((doc) => addDesk({ id: doc.id, ...doc.data() }))
+    .catch(console.error)
+    )
 
   return (
-   <CreateForm
-      onSubmit = {createItem}
-      placeholder = "Введите название доски"
-      actionTitle = "Создать доску"/>
+    <CreateForm
+    onSubmit={createItem}
+    placeholder="Введите название доски"
+    actionTitle="Создать доску"
+  />
   )
 }
 

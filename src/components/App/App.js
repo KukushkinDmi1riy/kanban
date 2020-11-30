@@ -24,8 +24,7 @@ const App = () => {
 			</Panel>
 
 			<Panel id = {panel.columns} className="Columns">
-				{state.activeDesk && (
-					<Columns/>)}
+				{state.activeDesk && <Columns/>}
 			</Panel>
 			</View>
 		</Context.Provider>
